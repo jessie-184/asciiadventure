@@ -11,15 +11,7 @@ using System.Collections.Generic;
  > smarter moving monsters
 */
 namespace asciiadventure {
-    public class Driver {
-        public static void Main(string[] args){
-            Game game = new Game();
-            game.Run();
-        }
-    }
-
     public class Game {
-        private static readonly Boolean DEBUG = true;
         private Random random = new Random();
         private static Boolean Eq(char c1, char c2){
             return c1.ToString().Equals(c2.ToString(), StringComparison.OrdinalIgnoreCase);
@@ -27,12 +19,6 @@ namespace asciiadventure {
 
         private static string Menu() {
             return "WASD to move\nEnter command: ";
-        }
-
-        private static void Debug(string message){
-            if (DEBUG) {
-                Console.Error.WriteLine(message);
-            }
         }
 
         private static void PrintScreen(Screen screen, string message, string menu) {
@@ -112,11 +98,18 @@ namespace asciiadventure {
                         message += "A MOB GOT YOU! GAME OVER";
                         gameOver = true;
                     }
+                    message += "STUFF";
                     mob.Move(deltaRow, deltaCol);
                 }
 
                 PrintScreen(screen, message, Menu());
             }
+            //PrintScreen(screen, "Game Over", "");
+        }
+
+        public static void Main(string[] args){
+            Game game = new Game();
+            game.Run();
         }
     }
 }

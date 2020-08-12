@@ -33,7 +33,7 @@ namespace asciiadventure {
             if (other == null){
                 return true;
             }
-            return other.IsPassable();
+            return other.IsPassable() || other is Player;
         }
 
         public List<Tuple<int, int>> GetLegalMoves(int row, int col) {

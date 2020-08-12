@@ -13,18 +13,26 @@ namespace asciiadventure {
             protected set;
         }
 
+        public String Token {
+            get;
+            protected set;
+        }
+
         public Screen Screen {
             get;
             protected set;
         }
 
-        public GameObject(int row, int col, Screen screen){
+        public GameObject(int row, int col, String token, Screen screen){
             Row = row;
             Col = col;
+            Token = token;
             Screen = screen;
             Screen[row, col] = this;
         }
-        public abstract string ToToken();
+        public string ToToken() {
+            return Token;
+        }
 
         public virtual Boolean IsPassable() {
             return false;
@@ -41,7 +49,7 @@ namespace asciiadventure {
 
     public abstract class MovingGameObject : GameObject {
 
-        public MovingGameObject(int row, int col, Screen screen) : base(row, col, screen) {}
+        public MovingGameObject(int row, int col, String token, Screen screen) : base(row, col, token, screen) {}
         
         public string Move(int deltaRow, int deltaCol) {
             // TODO: only moveable things can move
@@ -76,20 +84,11 @@ namespace asciiadventure {
     }
 
     class Wall : GameObject {
-        public Wall(int row, int col, Screen screen) : base(row, col, screen) {}
-
-        public override String ToToken() {
-            return "=";
-        }
+        public Wall(int row, int col, Screen screen) : base(row, col, "=", screen) {}
     }
 
     class Treasure : GameObject {
-        
-        public Treasure(int row, int col, Screen screen) : base(row, col, screen) {}
-
-        public override string ToToken() {
-            return "T";
-        }
+        public Treasure(int row, int col, Screen screen) : base(row, col, "T", screen) {}
 
         public override Boolean IsPassable() {
             return true;
