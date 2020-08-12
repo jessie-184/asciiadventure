@@ -2,10 +2,12 @@
 using System;
 using System.Text;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace asciiadventure {
     public class Screen {
         private GameObject[,] grid;
+
         public int NumRows {
             get;
             private set;
@@ -21,6 +23,35 @@ namespace asciiadventure {
             this.grid = new GameObject[NumRows, NumCols];
         }
 
+        private Boolean IsLegalMove(int row, int col, int deltaRow, int deltaCol) {
+            int newRow = row + deltaRow;
+            int newCol = col + deltaCol;
+            if (!IsInBounds(newRow, newCol)){
+                return false;
+            }
+            GameObject other = this[newRow, newCol];
+            if (other == null){
+                return true;
+            }
+            return other.IsPassable();
+        }
+
+        public List<Tuple<int, int>> GetLegalMoves(int row, int col) {
+            List<Tuple<int, int>> moves = new List<Tuple<int, int>>();
+            if (IsLegalMove(row, col, -1, 0)) {
+                moves.Add(Tuple.Create(-1, 0));
+            }
+            if (IsLegalMove(row, col, 1, 0)){
+                moves.Add(Tuple.Create(1, 0));
+            }
+            if (IsLegalMove(row, col, 0, -1)){
+                moves.Add(Tuple.Create(0, -1));
+            }
+            if (IsLegalMove(row, col, 0, 1)) {
+                moves.Add(Tuple.Create(0, 1));
+            }
+            return moves;
+        }
 
         public GameObject this[int row, int col]
         {

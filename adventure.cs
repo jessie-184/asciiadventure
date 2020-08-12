@@ -20,6 +20,7 @@ namespace asciiadventure {
 
     public class Game {
         private static readonly Boolean DEBUG = true;
+        private Random random = new Random();
         private static Boolean Eq(char c1, char c2){
             return c1.ToString().Equals(c2.ToString(), StringComparison.OrdinalIgnoreCase);
         }
@@ -30,7 +31,7 @@ namespace asciiadventure {
 
         private static void Debug(string message){
             if (DEBUG) {
-                Console.WriteLine(message);
+                Console.Error.WriteLine(message);
             }
         }
 
@@ -40,11 +41,6 @@ namespace asciiadventure {
             Console.WriteLine($"\n{message}");
             Console.WriteLine($"\n{menu}");
         }
-
-        public void Initialize() {
-
-        }
-
         public void Run() {
             Console.ForegroundColor = ConsoleColor.Green;
 
@@ -62,11 +58,17 @@ namespace asciiadventure {
             
             // add a treasure
             Treasure treasure = new Treasure(6, 2, screen);
+
+            // add some mobs
+            List<Mob> mobs = new List<Mob>();
+            mobs.Add(new Mob(9, 9, screen));
             
             // initially print the game board
             PrintScreen(screen, "Welcome!", Menu());
-
-            while (true) {
+            
+            Boolean gameOver = false;
+            
+            while (!gameOver) {
                 char input = Console.ReadKey(true).KeyChar;
 
                 String message = "";
@@ -81,20 +83,38 @@ namespace asciiadventure {
                     player.Move(0, -1);
                 } else if (Eq(input, 'd')) {
                     player.Move(0, 1);
+                } else if (Eq(input, 'i')) {
+                    message += player.Action(-1, 0);
+                } else if (Eq(input, 'k')) {
+                    message += player.Action(1, 0);
+                } else if (Eq(input, 'j')) {
+                    message += player.Action(0, -1);
+                } else if (Eq(input, 'l')) {
+                    message += player.Action(0, 1);
                 } else if (Eq(input, 'v')) {
                     // TODO: handle inventory
                     message = "You have nothing";
-                } else if (Eq(input, 'i')) {
-                    Debug("action up");
-                } else if (Eq(input, 'k')) {
-                    Debug("action down");
-                } else if (Eq(input, 'j')) {
-                    Debug("action left");
-                } else if (Eq(input, 'l')) {
-                    Debug("action right");
                 } else {
                     message = $"Unknown command: {input}";
                 }
+
+                // OK, now move the mobs
+                foreach (Mob mob in mobs){
+                    // TODO: Make mobs smarter, so they jump on the player, if it's possible to do so
+                    List<Tuple<int, int>> moves = screen.GetLegalMoves(mob.Row, mob.Col);
+                    if (moves.Count == 0){
+                        continue;
+                    }
+                    var (deltaRow, deltaCol) = moves[random.Next(moves.Count)];
+                    
+                    if (screen[mob.Row + deltaRow, mob.Col + deltaCol] is Player){
+                        // the mob got the player!
+                        message += "A MOB GOT YOU! GAME OVER";
+                        gameOver = true;
+                    }
+                    mob.Move(deltaRow, deltaCol);
+                }
+
                 PrintScreen(screen, message, Menu());
             }
         }

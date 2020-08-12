@@ -33,6 +33,10 @@ namespace asciiadventure {
         public override String ToString() {
             return this.ToToken();
         }
+
+        public void Delete() {
+            Screen[Row, Col] = null;
+        }
     }
 
     public abstract class MovingGameObject : GameObject {
@@ -69,25 +73,6 @@ namespace asciiadventure {
             Screen[Row, Col] = this;
             return "";
         }
-    }
-
-    class Player : MovingGameObject {
-
-        public Player(int row, int col, Screen screen, string name) : base(row, col, screen) {
-            Name = name;
-        }
-        public string Name {
-            get;
-            protected set;
-        }
-
-        public override String ToToken() {
-            return "@";
-        }
-
-        // public override string Interact(GameObject other) {
-        //     throw new Exception("PLAYER SHOULD NOT BE THE CALLER OF THE METHOD");
-        // }
     }
 
     class Wall : GameObject {
