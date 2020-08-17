@@ -15,7 +15,7 @@ namespace asciiadventure {
 
         public String Token {
             get;
-            protected set;
+            protected internal set;
         }
 
         public Screen Screen {
@@ -52,13 +52,10 @@ namespace asciiadventure {
         public MovingGameObject(int row, int col, String token, Screen screen) : base(row, col, token, screen) {}
         
         public string Move(int deltaRow, int deltaCol) {
-            // TODO: only moveable things can move
             int newRow = deltaRow + Row;
             int newCol = deltaCol + Col;
             if (!Screen.IsInBounds(newRow, newCol)) {
                 return "";
-                //throw new ArgumentOutOfRangeException("row,col",
-                //    $"new location at row ${newRow}, col ${newCol} is out of bounds");
             }
             GameObject gameObject = Screen[newRow, newCol];
             if (gameObject != null && !gameObject.IsPassable()) {

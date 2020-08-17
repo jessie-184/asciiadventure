@@ -95,16 +95,16 @@ namespace asciiadventure {
                     
                     if (screen[mob.Row + deltaRow, mob.Col + deltaCol] is Player){
                         // the mob got the player!
-                        message += "A MOB GOT YOU! GAME OVER";
+                        mob.Token = "*";
+                        message += "A MOB GOT YOU! GAME OVER\n";
                         gameOver = true;
                     }
-                    message += "STUFF";
+                    message += "STUFF about to move";
                     mob.Move(deltaRow, deltaCol);
                 }
 
                 PrintScreen(screen, message, Menu());
             }
-            //PrintScreen(screen, "Game Over", "");
         }
 
         public static void Main(string[] args){
