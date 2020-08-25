@@ -1,6 +1,27 @@
 asciiadventure
 ===
 Ascii adventure in C#
+
+## Game files
+* [screen.cs](screen.cs)
+* [adventure.cs](adventure.cs)
+* [gameobjects.cs](gameobjects.cs)
+* [player.cs](player.cs)
+* [mob.cs](mob.cs)
+
+
+
+### Challenges
+* Not the greatest class hierarchy
+* Mobs can only move when the player moves. There's no timer in the background.
+* Not possible for moving gameobjs to move over objects with replacing them
+* Really clunky menu options
+* Not great MVC for display; the Screen is essentially everything
+    * Need to draw moving gameobjs over the top of the underlying stuff
+    * Two layers? Basic stuff, plus moving things?
+* Not well set up to have multiple screens connected by portals, or something
+
+### Other notes
 * Screen is one screen, with numRows and numCols
     * 
 * GameObject is an object in the game.
@@ -10,15 +31,3 @@ Ascii adventure in C#
 * MovingGameObject extends GameObject, but adds movement as a possibility.
     * Knows about Screen
     * needs to ask Screen about legal moves
-* Player IS-A MovingGameObject.
-    * Adds a Move() method.
-    * Needs to be able to interact with other GameObjects.
-        * How?
-
-## Challenges
-* Not possible for moving gameobjs to move over objects with replacing them
-* Really clunky menu options
-* Not great MVC for display; the Screen is essentially everything
-    * Need to draw moving gameobjs over the top of the underlying stuff
-    * Two layers? Basic stuff, plus moving things?
-
