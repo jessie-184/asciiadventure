@@ -18,7 +18,7 @@ namespace asciiadventure {
         }
 
         private static string Menu() {
-            return "WASD to move\nEnter command: ";
+            return "WASD to move\nIJKL to attack/interact\nEnter command: ";
         }
 
         private static void PrintScreen(Screen screen, string message, string menu) {
@@ -91,6 +91,7 @@ namespace asciiadventure {
                     if (moves.Count == 0){
                         continue;
                     }
+                    // mobs move randomly
                     var (deltaRow, deltaCol) = moves[random.Next(moves.Count)];
                     
                     if (screen[mob.Row + deltaRow, mob.Col + deltaCol] is Player){
