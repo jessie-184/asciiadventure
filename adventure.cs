@@ -70,13 +70,13 @@ namespace asciiadventure {
                 } else if (Eq(input, 'd')) {
                     player.Move(0, 1);
                 } else if (Eq(input, 'i')) {
-                    message += player.Action(-1, 0);
+                    message += player.Action(-1, 0) + "\n";
                 } else if (Eq(input, 'k')) {
-                    message += player.Action(1, 0);
+                    message += player.Action(1, 0) + "\n";
                 } else if (Eq(input, 'j')) {
-                    message += player.Action(0, -1);
+                    message += player.Action(0, -1) + "\n";
                 } else if (Eq(input, 'l')) {
-                    message += player.Action(0, 1);
+                    message += player.Action(0, 1) + "\n";
                 } else if (Eq(input, 'v')) {
                     // TODO: handle inventory
                     message = "You have nothing";
