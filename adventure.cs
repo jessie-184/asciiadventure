@@ -79,7 +79,7 @@ namespace asciiadventure {
                     message += player.Action(0, 1) + "\n";
                 } else if (Eq(input, 'v')) {
                     // TODO: handle inventory
-                    message = "You have nothing";
+                    message = "You have nothing\n";
                 } else {
                     message = $"Unknown command: {input}";
                 }
