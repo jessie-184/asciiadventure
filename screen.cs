@@ -104,7 +104,7 @@ namespace asciiadventure {
                     if (gameObject == null){
                         result.Append(' ');
                     } else {
-                        result.Append(gameObject.ToToken());
+                        result.Append(gameObject.Token);
                     }
                 }
                 //Console.WriteLine($"newline for {r}");

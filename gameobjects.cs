@@ -30,16 +30,13 @@ namespace asciiadventure {
             Screen = screen;
             Screen[row, col] = this;
         }
-        public string ToToken() {
-            return Token;
-        }
 
         public virtual Boolean IsPassable() {
             return false;
         }
 
         public override String ToString() {
-            return this.ToToken();
+            return this.Token;
         }
 
         public void Delete() {

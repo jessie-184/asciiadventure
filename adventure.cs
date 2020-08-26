@@ -100,7 +100,6 @@ namespace asciiadventure {
                         message += "A MOB GOT YOU! GAME OVER\n";
                         gameOver = true;
                     }
-                    message += "STUFF about to move";
                     mob.Move(deltaRow, deltaCol);
                 }
 
