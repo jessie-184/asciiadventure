@@ -170,8 +170,8 @@ namespace asciiadventure
                         // if the health is only  the mob can kill the player
                         if (p.Health > 1)
                         {
-                            message += $"A mob is trying to attack you! Your health now is {p.Health}\n";
                             p.Health -= 1;
+                            message += $"A mob is trying to attack you! Your health now is {p.Health}\n";
                         }
                         else
                         {
